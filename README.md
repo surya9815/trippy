@@ -3,6 +3,7 @@
 
 Trippy is a Real Time Web Application which allows us to Search for Lowest Prices offered by Hotels of desired cities. It Allows Users to Compare Prices of Hotels Across various OTA Platforms and Choose the one with the lowest price offered
 
+> This project is under development, not recommended for use in production directly.
 
 ## Hotel API 
 
