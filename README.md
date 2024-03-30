@@ -54,3 +54,43 @@ It is a password that is provided when you register with the hotel api
 
 ![App Screenshot](screenshots/image8.png)
 
+## My Dream Django Project Structure ":)"
+project_name/
+├── config/                 # Configuration files
+│   ├── settings.py         # Django settings module
+│   ├── urls.py             # Root URL configuration
+│   └── wsgi.py             # WSGI application entry point
+├── project_name/           # Django project directory
+│   ├── __init__.py         # Initialization file
+│   ├── asgi.py             # ASGI application entry point
+│   ├── settings/           # Settings modules for different environments
+│   │   ├── __init__.py
+│   │   ├── base.py         # Base settings
+│   │   ├── development.py  # Development settings
+│   │   ├── production.py   # Production settings
+│   │   └── local.py        # Local settings (not committed to version control)
+│   ├── urls.py             # URL configuration for the project
+│   └── wsgi.py             # WSGI application entry point
+├── apps/                   # Django apps directory
+│   ├── app1/               # App 1 directory
+│   │   ├── migrations/     # Database migrations for app 1
+│   │   ├── templates/      # HTML templates for app 1
+│   │   ├── static/         # Static files (CSS, JavaScript, etc.) for app 1
+│   │   ├── __init__.py
+│   │   ├── admin.py        # Admin configurations for app 1
+│   │   ├── models.py       # Models for app 1
+│   │   ├── views.py        # Views (controller) for app 1
+│   │   ├── urls.py         # URL configurations for app 1
+│   │   └── tests.py        # Tests for app 1
+│   ├── app2/               # App 2 directory (similar structure to app 1)
+│   ├── ...                 # Other apps
+├── static/                  # Project-wide static files
+├── templates/               # Project-wide HTML templates
+├── media/                   # User-uploaded files
+├── logs/                    # Log files
+├── requirements.txt         # Python dependencies
+├── manage.py                # Django's command-line utility
+├── scripts/                 # Custom scripts
+└── README.md                # Project documentation
+
+
