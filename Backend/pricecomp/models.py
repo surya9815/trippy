@@ -1,9 +1,9 @@
 # models.py
 
-from django.db import models
-from djongo import models as djongo_models
+# from django.db import models
+from djongo import models
 
-class City(djongo_models.Model):
+class City(models.Model):
     name = models.CharField(max_length=100)
     country = models.CharField(max_length=100)
     population = models.IntegerField()
@@ -13,14 +13,14 @@ class City(djongo_models.Model):
 
     def __str__(self):
         return self.name
-class Hotel(djongo_models.Model):
+class Hotel(models.Model):
     name = models.CharField(max_length=100)
     hotel_city = models.ForeignKey(City, on_delete=models.CASCADE, related_name='hotels')
     description = models.TextField()
-    rating = models.DecimalField(max_digits=3, decimal_places=1)
-    amenities = models.TextField()  # You might want to consider a better way to store amenities
-    star_rating = models.IntegerField()
-    airport = models.CharField(max_length=100)
+    # rating = models.DecimalField(max_digits=3, decimal_places=1)
+    # amenities = models.TextField()  # You might want to consider a better way to store amenities
+    star_rating = models.DecimalField(max_digits=10, decimal_places=2)
+    airport_dist = models.DecimalField(max_digits=10, decimal_places=2)
     address = models.CharField(max_length=255)
     pincode = models.CharField(max_length=20)
     free_wifi = models.BooleanField(default=False)
@@ -30,7 +30,7 @@ class Hotel(djongo_models.Model):
 
     def __str__(self):
         return self.name
-class User(djongo_models.Model):
+class User(models.Model):
     username = models.CharField(max_length=100)
     email = models.EmailField(unique=True)
     password = models.CharField(max_length=100)  # You should handle password hashing
@@ -38,7 +38,7 @@ class User(djongo_models.Model):
     def __str__(self):
         return self.username
 
-class Booking(djongo_models.Model):
+class Booking(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='bookings')
     hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE)
     room_type = models.CharField(max_length=100)
@@ -48,7 +48,7 @@ class Booking(djongo_models.Model):
 
     def __str__(self):
         return f"{self.user.username} - {self.hotel.name}"
-class Pricing(djongo_models.Model):
+class Pricing(models.Model):
     hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE)
     room_type = models.CharField(max_length=100)
     date = models.DateField()

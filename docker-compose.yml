@@ -1,11 +1,75 @@
-version: "3.2"
+version: '3.8'
 services:
-  backend_frontend:
+  mongo:
+    image: mongo
+    container_name: mongo
     restart: always
-    container_name: backend_frontend
-    build: 
-      context: .
-      dockerfile: Dockerfile        
+    env_file: .env
+    environment: 
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=root
+      - MONGO_INITDB_DATABASE=${MONGO_DB_NAME}
+      - MONGO_INITDB_USERNAME=${MONGO_DB_USERNAME}
+      - MONGO_INITDB_PASSWORD=${MONGO_DB_PASSWORD}
+    volumes:
+      - ${PWD}/_data/mongo:/data/db
+      - ${PWD}/docker/_mongo/fixtures:/import
+      - ${PWD}/docker/_mongo/scripts/init.sh:/docker-entrypoint-initdb.d/setup.sh
     ports:
-      - "8000:8000"
+      - 27017:27017
+
+  redis:
+    image: redis:7.0.11-alpine
+    container_name: redis
+    restart: always
+    ports:
+      - 6379:6379
+
+  django:
+    container_name : django_backend
+    build:
+      context: ./Backend
+    restart: always
+    command: python manage.py runserver 0.0.0.0:8000
+    env_file: .env
+    volumes:
+      - ./Backend:/usr/src/app/
+    ports:
+      - 8001:8000
+    environment:
+      - DEBUG=${DEBUG}
+      - SECRET_KEY=${SECRET_KEY}
+      - ALLOWED_HOSTS=localhost,127.0.0.1
+    depends_on:
+      - redis
+  
+  react:
+    build: ./Frontend
+    container_name: react_frontend
+    restart: always
+    ports:
       - "3000:3000"
+    volumes:
+      - ./Frontend:/app
+  #OLD
+  #  version: "3.2"
+# services:
+#   backend_frontend:
+#     restart: always
+#     container_name: backend_frontend
+#     build: 
+#       context: .
+#       dockerfile: Dockerfile        
+#     ports:
+#       - "8000:8000"
+#       - "3000:3000"
+    # redis:
+  #   image: redis:6
+  #   container_name: redis
+  #   restart: always
+  #   env_file: .env
+  #   command: redis-server --requirepass $REDIS_PASSWORD
+  #   ports:
+  #     - 6379:6379
+  #   volumes:
+  #     - ${PWD}/_data/redis:/var/lib/redis

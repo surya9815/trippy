@@ -1,0 +1,1 @@
+from populate_hotel_data import populate_db_with_hotel_data
