@@ -1,4 +1,4 @@
-import os, redis
+import os, redis,json
 from django.conf import settings
 from redis.commands.json.path import Path
 
@@ -7,7 +7,7 @@ class RedisUtils():
         self.host = host
         self.port = port
         self.password = password
-        self.redis_connection = redis.StrictRedis(
+        self.redis = redis.StrictRedis(
             host=self.host,
             port=self.port,
             password=self.password,
