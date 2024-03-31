@@ -1,4 +1,4 @@
-import csv, random 
+import csv, random,os 
 from datetime import datetime
 from Backend.pricecomp.models import Hotel, Pricing, City
 
@@ -12,7 +12,7 @@ Load the Hotels_data.csv and Populate the Mongo DB with Data.
 """
 
 def populate_db_with_hotel_data():
-    with open("/Users/suryanshthakur/Desktop/Personal Projects/TrippyFinal/hotels_data.csv",'r') as file:
+    with open(os.environ.get('HOTEL_DATA'),'r') as file:
         reader = csv.DictReader(file)
         # {'': '1', 'CityName': 'Mumbai', 'Population': '12442373', 'CityRank': '0', 'IsMetroCity': '1', 'IsTouristDestination': '1', 
         #  'IsWeekend': '1', 'IsNewYearEve': '0', 'Date': 'Dec 18 2016', 'HotelName': 'Vivanta by Taj', 'RoomRent': '12375',

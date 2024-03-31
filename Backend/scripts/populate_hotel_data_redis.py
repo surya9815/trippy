@@ -11,7 +11,7 @@ Load the Hotels_data.csv and Populate the Redis with Data.
 """
 
 def populate_db_with_hotel_data():
-    with open("/Users/suryanshthakur/Desktop/Personal Projects/TrippyFinal/hotels_data.csv",'r') as file:
+    with open(os.environ.get('HOTEL_DATA'),'r') as file:
         reader = csv.DictReader(file)
         json_data = {}
       
